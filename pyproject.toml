@@ -1,0 +1,10 @@
+[project]
+name = "pycli-template"
+version = "0.1.0"
+description = "Copier template for a Python-only uv-first CLI project"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = []
+
+[tool.uv]
+cache-dir = "./.uv-cache"

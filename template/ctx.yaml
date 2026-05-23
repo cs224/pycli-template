@@ -1,0 +1,27 @@
+$schema: "https://raw.githubusercontent.com/context-hub/generator/refs/heads/main/json-schema.json"
+
+tools:
+  - id: project-export
+    description: "Stage Python project sources for CTX ingestion"
+    type: run
+    commands:
+      - cmd: bash
+        args:
+          - -lc
+          - >
+            rm -rf .context/project &&
+            mkdir -p .context/project/{{ package_name }} .context/project/tests &&
+            cp README.md pyproject.toml AGENTS.md .context/project/ &&
+            cp -R {{ package_name }}/. .context/project/{{ package_name }}/ &&
+            cp -R tests/. .context/project/tests/
+
+documents:
+  - description: "Project sources and instructions"
+    outputPath: "project.md"
+    sources:
+      - type: file
+        sourcePaths: [".context/project"]
+        filePattern:
+          - "*.md"
+          - "*.toml"
+          - "*.py"

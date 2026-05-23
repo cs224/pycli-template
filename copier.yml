@@ -1,0 +1,51 @@
+_subdirectory: template
+_templates_suffix: ""
+_tasks:
+  - command: [git, init]
+    when: "{{ _copier_operation == 'copy' }}"
+  - command: [git, config, user.email, "{{ git_user_email }}"]
+    when: "{{ _copier_operation == 'copy' }}"
+
+project_name:
+  type: str
+  default: hello-cli
+  help: Kebab-case project and distribution name
+
+package_name:
+  type: str
+  default: "{{ project_name | replace('-', '_') }}"
+  help: Snake_case Python import package
+
+cli_name:
+  type: str
+  default: "{{ project_name }}"
+  help: Kebab-case console script name
+
+description:
+  type: str
+  default: Hello-world Python CLI built with uv
+
+git_user_email:
+  type: str
+  default: 681072+cs224@users.noreply.github.com
+  help: Repo-local git user.email to configure after project generation
+
+author_name:
+  type: str
+  default: Your Name
+
+author_email:
+  type: str
+  default: "{{ git_user_email }}"
+
+repo_slug:
+  type: str
+  default: your-org/{{ project_name }}
+
+min_python:
+  type: str
+  default: "3.12"
+
+license:
+  type: str
+  default: Apache-2.0
